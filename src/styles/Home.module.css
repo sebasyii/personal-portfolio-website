@@ -1,15 +1,24 @@
+.grid-overlay {
+  position: absolute;
+  top: -50px;
+  right: 0;
+}
+
 .container {
-  max-width: 1100px;
+  width: min(1100px, 90%);
+  /* max-width: 1100px; */
   margin: 0 auto;
   padding: 20px 0 10px 0;
 }
 
 .hero-section {
   background-color: #1a2029;
+  overflow: hidden;
 }
 
 .hero--main-content {
-  padding: clamp(18rem, calc(18rem + ((1vw - 0.48rem) * 2.7778)), 20rem) 0;
+  padding: clamp(18rem, calc(18rem + ((1vw - 0.48rem) * 2.7778)), 20rem) 0 10rem
+    0;
   color: #fff;
 }
 
@@ -44,6 +53,12 @@
   font-size: clamp(1.4rem, calc(1.4rem + ((1vw - 0.48rem) * 0.5556)), 1.8rem);
   font-family: "Inter", sans-serif;
   line-height: 1.2;
+
+  color: rgba(255, 255, 255, 0.7);
+
+  max-width: 740px;
+
+  margin-bottom: 4.5rem;
 }
 
 .btn-wrapper {
@@ -95,4 +110,106 @@
   cursor: pointer;
 
   margin-top: 10rem;
+}
+
+.social-media-links {
+  text-orientation: sideways-right;
+  writing-mode: vertical-lr;
+
+  position: absolute;
+  bottom: 0;
+  right: 10%;
+
+  z-index: 999;
+}
+
+.sm-links-wrapper {
+  display: flex;
+
+  align-items: center;
+  position: relative;
+  height: 100%;
+}
+
+.sm-links-wrapper::after {
+  content: "";
+  display: block;
+  width: 1px;
+  height: 9rem;
+  background-color: #fff;
+}
+
+.sm-link {
+  font-size: clamp(1.4rem, calc(1.4rem + ((1vw - 0.48rem) * 0.5556)), 1.8rem);
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+@media screen and (max-width: 576px) {
+  .hero--main-content {
+    padding: 10rem 0 10rem 0;
+  }
+}
+
+/* About Section */
+
+.about-me-section {
+  background-color: #1a2029;
+
+  padding: 5rem 0 10rem 0;
+}
+
+.about-me-section h2 {
+  font-size: clamp(5rem, calc(5rem + ((1vw - 0.48rem) * 2.0833)), 6.5rem);
+  font-family: "Inter", sans-serif;
+  color: #fff;
+
+  position: relative;
+
+  margin-left: 150px;
+  margin-bottom: 4rem;
+}
+
+.about-me-section h2::before {
+  content: "";
+  display: block;
+  width: 150px;
+  height: 2.5px;
+  background: #fff;
+  left: -170px;
+  top: 50%;
+  transform: translate(0, -10%);
+  position: absolute;
+}
+
+.about-me-content {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  gap: 50px;
+}
+
+.about-me-image-container {
+  position: relative;
+}
+
+.about-me-image-container::before {
+  content: "";
+  display: block;
+  width: 80%;
+  height: 100%;
+  margin-right: 50px;
+
+  position: absolute;
+  top: 30px;
+  left: -50px;
+
+  background: url("../../public/grid-box.svg");
+  /* background-repeat: no-repeat; */
+}
+
+.about-me-content-container p {
+  font-size: clamp(1.2rem, calc(1.2rem + ((1vw - 0.48rem) * 0.5556)), 1.6rem);
+  font-family: "Inter", sans-serif;
+
+  color: rgba(255, 255, 255, 0.7);
 }

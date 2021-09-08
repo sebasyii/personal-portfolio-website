@@ -10,7 +10,7 @@ export const Navbar = () => {
         <nav>
           <ul className={`${styles["navlist"]}`}>
             <li className={`${styles["nav-item"]}`}>
-              <a href="#" className={`${styles["nav-link"]}`}>
+              <a href="#about" className={`${styles["nav-link"]}`}>
                 About
               </a>
             </li>
