@@ -148,6 +148,7 @@ const AboutMe = () => {
             width="500px"
             height={300}
             objectFit="contain"
+            alt="A picture of me - Sebastian"
           />
         </Box>
       </SimpleGrid>

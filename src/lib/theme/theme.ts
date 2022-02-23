@@ -1,5 +1,10 @@
 import { extendTheme, theme as chakraTheme } from "@chakra-ui/react";
 
+const config = {
+  initialColorMode: "dark",
+  useSystemColorMode: false,
+};
+
 const theme = extendTheme({
   components: {
     Button: {
@@ -35,6 +40,7 @@ const theme = extendTheme({
     heading: `"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"`,
     body: "Space Mono",
   },
+  config,
 });
 
 export default theme;

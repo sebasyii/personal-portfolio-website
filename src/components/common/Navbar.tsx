@@ -14,7 +14,6 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import React from "react";
-import DarkModeSwitch from "./DarkModeSwitch";
 import NextLink from "next/link";
 
 import { HamburgerIcon } from "@chakra-ui/icons";
@@ -53,7 +52,6 @@ const Navbar = () => {
               </Link>
               <Button variant="link">My Projects</Button>
               <Button variant="link">Contact Me</Button>
-              <DarkModeSwitch />
             </HStack>
             <Box display={{ base: "inline-flex", md: "none" }}>
               <IconButton
