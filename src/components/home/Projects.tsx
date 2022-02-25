@@ -21,13 +21,22 @@ type ProjectsType = {
 };
 
 const Projects = ({ projects }: ProjectsType) => {
-  console.log(projects);
   return (
-    <Flex as="section" position="relative">
-      <Flex position="absolute" zIndex="-1" right="75vw" top="70px">
+    <Flex
+      as="section"
+      position="relative"
+      overflow="hidden"
+      px={{ base: 5, md: 0 }}
+    >
+      <Flex
+        position="absolute"
+        zIndex="-1"
+        left="85vw"
+        top={{ base: "50px", md: "-20px" }}
+      >
         <Image
           src="/my-projects-grid.svg"
-          width="500px"
+          width="400px"
           height="250px"
           layout="fixed"
           alt="Dots Grid"
@@ -43,15 +52,19 @@ const Projects = ({ projects }: ProjectsType) => {
           </Flex>
         </HStack>
         <SimpleGrid
-          columns={{ base: 1, sm: 1, md: 3 }}
+          columns={{ base: 1, sm: 1, md: 1 }}
           spacingX={{ base: 8, lg: 12 }}
           spacingY={12}
           mt={6}
+          maxW="4xl"
+          marginInline="auto"
         >
           {projects.map((project, pid) => (
-            <NextLink passHref href={`/projects/${project.slug}`} key={pid}>
-              <ProjectsCard projectDetails={project.frontMatter} />
-            </NextLink>
+            <ProjectsCard
+              projectDetails={project.frontMatter}
+              projectSlug={project.slug}
+              key={project.slug}
+            />
           ))}
         </SimpleGrid>
       </Container>

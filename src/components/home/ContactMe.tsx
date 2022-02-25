@@ -35,8 +35,8 @@ const ContactMe = () => {
                 mt={{ base: 3, sm: 5, md: 5 }}
                 mx={{ sm: "auto", lg: 0 }}
                 mb={6}
-                fontSize={{ base: "lg", md: "xl" }}
-                color="gray.500"
+                fontSize={{ base: "lg", md: "lg" }}
+                color={useColorModeValue("gray.600", "gray.400")}
                 lineHeight="base"
                 fontFamily="Inter"
               >

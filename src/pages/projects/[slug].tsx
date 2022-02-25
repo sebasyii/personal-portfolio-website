@@ -13,19 +13,28 @@ import {
   Divider,
   Text,
   Container,
+  Box,
 } from "@chakra-ui/react";
+import Image from "next/image";
+
+const components = { Box, Image, Heading, Text };
 
 const PostPage = ({
-  frontMatter: { title, date },
+  frontMatter: { title, date, excerpt, image_url },
   mdxSource,
 }: {
-  frontMatter: { title: string; date: string };
+  frontMatter: {
+    title: string;
+    date: string;
+    excerpt: string;
+    image_url: string;
+  };
   mdxSource: MDXRemoteSerializeResult;
 }) => {
   return (
     <Container
       maxW="70ch"
-      py={20}
+      py={56}
       fontFamily="Inter"
       color="whiteAlpha.900"
       lineHeight="26px"
@@ -34,9 +43,21 @@ const PostPage = ({
     >
       <VStack position="relative" alignItems="stretch" w="full" spacing={8}>
         <VStack alignItems="flex-start" spacing={3}>
-          <Heading as="h1" size="lg">
+          <Heading as="h1" size={"3xl"} fontWeight="extrabold">
             {title}
           </Heading>
+          <Heading as="h3" size="sm" fontWeight="medium">
+            {excerpt}
+          </Heading>
+          <Box pt={5}>
+            <Image
+              src={image_url}
+              width={1600}
+              height={900}
+              objectFit="cover"
+              alt={`Cover image for ${title}`}
+            />
+          </Box>
           <HStack
             divider={
               <Text mx={2} color="gray.500">
@@ -55,7 +76,7 @@ const PostPage = ({
           </Text> */}
           </HStack>
         </VStack>
-        <MDXRemote {...mdxSource} />
+        <MDXRemote {...mdxSource} components={components} />
       </VStack>
     </Container>
   );

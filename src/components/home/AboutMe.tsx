@@ -145,8 +145,8 @@ const AboutMe = () => {
           <Image
             src="/profile-image.png"
             layout="responsive"
-            width="500px"
-            height={300}
+            width="700px"
+            height={700}
             objectFit="contain"
             alt="A picture of me - Sebastian"
           />
