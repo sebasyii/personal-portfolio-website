@@ -40,6 +40,10 @@
 - 👷 PR Workflow — Run Type Check & Linters on all Pull Requests
 - ⚙️ EditorConfig - Maintain consistent coding styles across editors and IDEs
 - 🗂 Path Mapping — Import components or images using the `@` prefix
+- Next-seo
+- Next-sitemap
+- Chakra UI
+- eslint-plugin-chakra-ui
 
 ## Quick Start
 

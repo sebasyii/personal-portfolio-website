@@ -1,13 +1,12 @@
 {
-  "name": "typescript-nextjs-starter",
-  "description": "A TypeScript starter for Next.js that includes all you need to build amazing projects",
+  "name": "personal-portfolio-website",
+  "description": "Personal Portfolio Site for Sebastian",
   "version": "1.0.0",
   "private": true,
-  "author": "João Pedro Schmitz <hey@joaopedro.dev> (@jpedroschmitz)",
+  "author": "Sebastian Yii <hello@sebastianyii.com> (@sebasyii)",
   "license": "MIT",
   "keywords": [
     "nextjs",
-    "starter",
     "typescript"
   ],
   "scripts": {
@@ -27,9 +26,18 @@
     ]
   },
   "dependencies": {
+    "@chakra-ui/icons": "^1.1.7",
+    "@chakra-ui/react": "^1.8.5",
+    "@emotion/react": "^11",
+    "@emotion/styled": "^11",
+    "framer-motion": "^6",
+    "gray-matter": "^4.0.3",
     "next": "12.1.0",
+    "next-mdx-remote": "^4.0.0",
+    "next-seo": "^5.1.0",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "react-icons": "^4.3.1"
   },
   "devDependencies": {
     "@commitlint/cli": "16.2.1",
@@ -45,6 +53,7 @@
     "eslint-config-next": "12.1.0",
     "eslint-config-prettier": "8.4.0",
     "eslint-import-resolver-typescript": "2.5.0",
+    "eslint-plugin-chakra-ui": "^0.6.0",
     "eslint-plugin-prettier": "4.0.0",
     "husky": "7.0.4",
     "lint-staged": "12.3.4",
