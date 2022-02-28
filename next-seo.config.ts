@@ -1,26 +1,17 @@
 import { DefaultSeoProps } from 'next-seo';
 
 const defaultSEOConfig: DefaultSeoProps = {
-  title: 'Sebastian Yii Website',
-  titleTemplate: '%s | nextarter-chakra',
-  defaultTitle: 'nextarter-chakra',
-  description: 'Next.js + chakra-ui + TypeScript template',
-  canonical: 'https://nextarter-chakra.sznm.dev',
+  title: "Sebastian Yii's Website",
+  titleTemplate: '%s',
+  defaultTitle: 'Sebastian Yii',
+  description: "Sebastian Yii's Website",
+  canonical: 'https://sebastianyii.com',
   openGraph: {
-    url: 'https://nextarter-chakra.sznm.dev',
-    title: 'nextarter-chakra',
-    description: 'Next.js + chakra-ui + TypeScript template',
-    images: [
-      {
-        url: 'https://og-image.sznm.dev/**nextarter-chakra**.sznm.dev.png?theme=dark&md=1&fontSize=125px&images=https%3A%2F%2Fsznm.dev%2Favataaars.svg&widths=250',
-        alt: 'nextarter-chakra.sznm.dev og-image',
-      },
-    ],
-    site_name: 'nextarter-chakra',
-  },
-  twitter: {
-    handle: '@sozonome',
-    cardType: 'summary_large_image',
+    url: 'sebastianyii.com',
+    title: "Sebastian Yii's Website",
+    description: "Sebastian Yii's Website",
+    site_name: 'sebastian-yii-website',
+    type: 'website',
   },
 };
 
