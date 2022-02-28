@@ -1,32 +1,24 @@
 import { Flex, Stack, Text, useColorModeValue } from '@chakra-ui/react';
 
-const MobileNav = () => {
+type MobileNavProps = {
+  navLinks: {
+    name: string;
+    href: string;
+  }[];
+};
+
+const MobileNav = ({ navLinks }: MobileNavProps) => {
+  const textColor = useColorModeValue('gray.600', 'gray.200');
+
   return (
     <Stack d={{ md: 'none' }} p={6} bg={useColorModeValue('white', 'gray.800')}>
-      <Flex py={2}>
-        <Text
-          color={useColorModeValue('gray.600', 'gray.200')}
-          fontWeight={600}
-        >
-          About
-        </Text>
-      </Flex>
-      <Flex py={2}>
-        <Text
-          color={useColorModeValue('gray.600', 'gray.200')}
-          fontWeight={600}
-        >
-          About
-        </Text>
-      </Flex>
-      <Flex py={2}>
-        <Text
-          color={useColorModeValue('gray.600', 'gray.200')}
-          fontWeight={600}
-        >
-          About
-        </Text>
-      </Flex>
+      {navLinks.map((link) => (
+        <Flex key={link.name} py={2}>
+          <Text color={textColor} fontWeight={600}>
+            {link.name}
+          </Text>
+        </Flex>
+      ))}
     </Stack>
   );
 };

@@ -14,8 +14,11 @@ import {
   Text,
   Container,
   Box,
+  Tag,
 } from '@chakra-ui/react';
 import Image from 'next/image';
+import ChakraNextImage from '@/components/common/ChakraNextImage';
+import Navbar from '@/components/Navbar';
 
 const components = { Box, Image, Heading, Text };
 
@@ -31,7 +34,43 @@ const PostPage = ({
   };
   mdxSource: MDXRemoteSerializeResult;
 }) => {
-  return <MDXRemote {...mdxSource} components={components} />;
+  return (
+    <>
+      <Navbar />
+
+      <Box as="section" pt={{ base: 16 }} pb={{ base: 24 }}>
+        <Box pos="relative" maxW="2xl" mx="auto" px={{ base: 6, md: 8 }}>
+          <Heading mt={16} mb={6} fontSize="6xl">
+            {title}
+          </Heading>
+          <Box pos="relative" w="100%" h={96} mb={3}>
+            <ChakraNextImage
+              src={`/projects${image_url}`}
+              alt={`${title}-thumbnail-image`}
+              height="100%"
+              objectFit="cover"
+            />
+          </Box>
+          <HStack justify="space-between" mb={6}>
+            <HStack>
+              <Text>{date}</Text>
+            </HStack>
+            <HStack>
+              <Text>1,350 words</Text>
+              <Text>7 min read</Text>
+              <Text>188 views</Text>
+            </HStack>
+          </HStack>
+          <HStack mb={16}>
+            <Tag>Tag 1</Tag>
+            <Tag>Tag 2</Tag>
+            <Tag>Tag 3</Tag>
+          </HStack>
+          <MDXRemote {...mdxSource} components={components} />
+        </Box>
+      </Box>
+    </>
+  );
 };
 
 export default PostPage;

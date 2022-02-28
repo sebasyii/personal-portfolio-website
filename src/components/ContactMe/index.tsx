@@ -12,7 +12,7 @@ const ContactMe = () => {
   return (
     <Box as="section">
       <Box
-        maxW="2xl"
+        maxW="4xl"
         mx="auto"
         px={{ base: '6', lg: '8' }}
         py={{ base: '16', sm: '20' }}
@@ -22,7 +22,7 @@ const ContactMe = () => {
           as="h2"
           fontWeight="extrabold"
           letterSpacing="tight"
-          size="3xl"
+          size="2xl"
         >
           Get In Touch
         </Heading>

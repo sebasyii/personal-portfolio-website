@@ -15,26 +15,9 @@ import Logo from './Logo';
 import MobileNav from './MobileNav';
 
 import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
+import navLinks from './NavLinks';
 
 // Create a list of links to be rendered in the navbar
-const navLinks = [
-  {
-    name: 'Home',
-    href: '/',
-  },
-  {
-    name: 'About',
-    href: '/about',
-  },
-  {
-    name: 'Projects',
-    href: '/projects',
-  },
-  {
-    name: 'Contact Me',
-    href: '/contact',
-  },
-];
 
 const Navbar = () => {
   const { isOpen, onToggle } = useDisclosure();
@@ -96,7 +79,7 @@ const Navbar = () => {
         </Flex>
       </Box>
       <Collapse animateOpacity in={isOpen}>
-        <MobileNav />
+        <MobileNav navLinks={navLinks} />
       </Collapse>
     </Box>
   );
