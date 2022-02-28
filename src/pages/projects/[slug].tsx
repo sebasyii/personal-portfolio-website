@@ -19,11 +19,12 @@ import {
 import Image from 'next/image';
 import ChakraNextImage from '@/components/common/ChakraNextImage';
 import Navbar from '@/components/Navbar';
+import ProjectMeta from '@/components/Projects/ProjectMeta';
 
 const components = { Box, Image, Heading, Text };
 
 const PostPage = ({
-  frontMatter: { title, date, excerpt, image_url },
+  frontMatter: { title, date, excerpt, image_url, tags },
   mdxSource,
 }: {
   frontMatter: {
@@ -31,6 +32,7 @@ const PostPage = ({
     date: string;
     excerpt: string;
     image_url: string;
+    tags: string[];
   };
   mdxSource: MDXRemoteSerializeResult;
 }) => {
@@ -61,11 +63,7 @@ const PostPage = ({
               <Text>188 views</Text>
             </HStack>
           </HStack>
-          <HStack mb={16}>
-            <Tag>Tag 1</Tag>
-            <Tag>Tag 2</Tag>
-            <Tag>Tag 3</Tag>
-          </HStack>
+          <ProjectMeta mb={16} tags={Array.isArray(tags) ? tags : []} />
           <MDXRemote {...mdxSource} components={components} />
         </Box>
       </Box>

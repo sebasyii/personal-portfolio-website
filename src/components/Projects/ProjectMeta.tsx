@@ -1,4 +1,10 @@
-import { Stack, Tag, TagLabel, TagLeftIcon } from '@chakra-ui/react';
+import {
+  Stack,
+  StackProps,
+  Tag,
+  TagLabel,
+  TagLeftIcon,
+} from '@chakra-ui/react';
 import React, { ReactElement } from 'react';
 
 import {
@@ -10,7 +16,7 @@ import {
   SiReact,
 } from 'react-icons/si';
 
-type ProjectMetaType = {
+type ProjectMetaType = StackProps & {
   tags: string[];
 };
 
@@ -24,13 +30,15 @@ const labelToIcon: Record<string, { icon: ReactElement; colorScheme: string }> =
     'Chrome Extension': { icon: <SiGooglechrome />, colorScheme: 'yellow' },
   };
 
-const ProjectMeta = ({ tags }: ProjectMetaType) => {
+const ProjectMeta = (props: ProjectMetaType) => {
+  const { tags, ...rest } = props;
   return (
     <Stack
       align={{ base: 'baseline', sm: 'revert' }}
       wrap={{ base: 'wrap', sm: 'nowrap' }}
       direction={{ base: 'row', sm: 'row' }}
       gap={{ base: 2, sm: 0 }}
+      {...rest}
     >
       {tags.map((tag) => (
         <Tag
