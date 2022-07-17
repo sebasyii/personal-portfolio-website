@@ -1,14 +1,4 @@
-import {
-  FiBarChart,
-  FiBookOpen,
-  FiCode,
-  FiFileText,
-  FiGrid,
-  FiMousePointer,
-  FiRepeat,
-  FiShield,
-  FiShieldOff,
-} from "react-icons/fi";
+import { FiBookOpen, FiCode, FiShieldOff } from "react-icons/fi";
 
 export const items = [
   {

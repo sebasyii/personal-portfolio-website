@@ -66,7 +66,7 @@ const Resource = ({
 
         <Container>
           <SimpleGrid columns={{ sm: 1, md: 2 }} spacing={10}>
-            {posts.map((post) => (
+            {posts.map((post: any) => (
               <BlogCard key={post.slug} postData={post} />
             ))}
           </SimpleGrid>

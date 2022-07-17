@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 
-const BlogContent = ({ content }) => {
+const BlogContent = ({ content }: any) => {
   return (
     <chakra.main py={16}>
       <Container maxWidth="5xl">

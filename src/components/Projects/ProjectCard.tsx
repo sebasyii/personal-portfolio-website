@@ -1,15 +1,10 @@
-import { ProjectType } from "@/types/projectTypes";
 import { Box, chakra, Heading, Stack } from "@chakra-ui/react";
 import React from "react";
 import ChakraNextImage from "../common/ChakraNextImage";
 import ChakraNextLink from "../common/ChakraNextLink";
 import ProjectMeta from "./ProjectMeta";
 
-type ProjectCardType = {
-  projectDetails: ProjectType;
-};
-
-const ProjectCard = ({ projectDetails }: ProjectCardType) => {
+const ProjectCard = ({ projectDetails }: any) => {
   const { frontMatter, slug } = projectDetails;
   return (
     <Box w="full">

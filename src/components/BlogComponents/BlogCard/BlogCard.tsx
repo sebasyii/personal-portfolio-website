@@ -11,7 +11,17 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 
-const BlogCard = ({ postData }) => (
+interface BlogCardProps {
+  postData: {
+    title: string;
+    publishedAt: string;
+    description: string;
+    seoDescription: string;
+    category: string;
+  };
+}
+
+const BlogCard = ({ postData }: BlogCardProps) => (
   <Box
     maxW="2xl"
     px={8}
