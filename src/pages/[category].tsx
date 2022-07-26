@@ -1,11 +1,15 @@
 import CategoryLayout from "@/components/Layouts/CategoryLayout";
+import { GeneratedType } from "@/types/shared";
 
 import { allPosts } from "contentlayer/generated";
 import type { GetStaticPaths, GetStaticProps } from "next";
 import React, { ReactElement } from "react";
 
-const Category = ({ category }) => {
-  console.log(category);
+interface CategoryProps {
+  category: GeneratedType[];
+}
+
+const Category = ({ category }: CategoryProps) => {
   return <div>Category</div>;
 };
 

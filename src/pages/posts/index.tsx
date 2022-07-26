@@ -10,7 +10,7 @@ import {
   SimpleGrid,
 } from "@chakra-ui/react";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
-import { useRouter } from "next/router";
+
 import React, { ReactElement } from "react";
 
 import { allPosts } from "contentlayer/generated";

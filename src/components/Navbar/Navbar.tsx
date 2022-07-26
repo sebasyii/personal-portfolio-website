@@ -1,6 +1,5 @@
 import {
   Box,
-  BoxProps,
   Button,
   ButtonGroup,
   Collapse,
@@ -16,7 +15,7 @@ import {
 
 import { FiMenu, FiMoon, FiSun } from "react-icons/fi";
 
-import React, { AnchorHTMLAttributes, useRef } from "react";
+import React from "react";
 import Logo from "../shared/Logo";
 
 import useSound from "use-sound";

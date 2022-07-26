@@ -1,11 +1,4 @@
-import {
-  Box,
-  chakra,
-  Container,
-  Grid,
-  GridItem,
-  Heading,
-} from "@chakra-ui/react";
+import { chakra, Container, Grid, GridItem, Heading } from "@chakra-ui/react";
 import React from "react";
 
 const BlogContent = ({ content }: any) => {

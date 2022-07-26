@@ -5,10 +5,6 @@
 import SimpleLayout from "@/components/Layouts/SimpleLayout";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
 
-import fs from "fs";
-import path from "path";
-import matter from "gray-matter";
-
 import { allPosts } from "contentlayer/generated";
 
 import React, { ReactElement } from "react";

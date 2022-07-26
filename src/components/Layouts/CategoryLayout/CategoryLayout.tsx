@@ -1,20 +1,24 @@
 import BlogCard from "@/components/BlogComponents/BlogCard";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import { GeneratedType } from "@/types/shared";
 import {
   chakra,
   Container,
-  Grid,
-  GridItem,
   Heading,
   SimpleGrid,
   Stack,
   Text,
 } from "@chakra-ui/react";
 import React from "react";
+import { ReactNode } from "react";
 
 interface SimpleLayoutProps {
-  children: React.ReactNode;
+  children: ReactNode & {
+    props: {
+      category: GeneratedType[];
+    };
+  };
 }
 
 const CategoryLayout = ({ children }: SimpleLayoutProps) => {
@@ -47,6 +51,7 @@ const CategoryLayout = ({ children }: SimpleLayoutProps) => {
                 category: "",
               }}
             />
+            {children}
           </SimpleGrid>
         </Container>
       </chakra.main>
