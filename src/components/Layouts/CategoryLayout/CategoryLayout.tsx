@@ -11,14 +11,11 @@ import {
   Text,
 } from "@chakra-ui/react";
 import React from "react";
+import { ReactElement } from "react";
 import { ReactNode } from "react";
 
 interface SimpleLayoutProps {
-  children: ReactNode & {
-    props: {
-      category: GeneratedType[];
-    };
-  };
+  children: ReactElement<{ category: GeneratedType[] }>;
 }
 
 const CategoryLayout = ({ children }: SimpleLayoutProps) => {
