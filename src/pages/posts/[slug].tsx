@@ -9,7 +9,12 @@ import {
   HStack,
   Kbd,
   Stack,
+  Tbody,
+  Td,
   Text,
+  Th,
+  Thead,
+  Tr,
   useColorModeValue,
 } from "@chakra-ui/react";
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next";
@@ -29,6 +34,7 @@ import MDXListItem from "@/components/MDXComponents/MDXListItem";
 import MDXLink from "@/components/MDXComponents/MDXLink";
 
 import { DateTime } from "luxon";
+import MDXTable from "@/components/MDXComponents/MDXTable";
 
 const Pre = dynamic(() => import("@/components/MDXComponents/Pre"), {
   ssr: false,
@@ -62,6 +68,12 @@ const mdxComponents = {
   li: MDXListItem,
   a: MDXLink,
   Kbd,
+  table: MDXTable,
+  thead: Thead,
+  tr: Tr,
+  th: Th,
+  tbody: Tbody,
+  td: Td,
 };
 
 const Post = ({ post }: InferGetStaticPropsType<typeof getStaticProps>) => {
@@ -122,9 +134,7 @@ const Post = ({ post }: InferGetStaticPropsType<typeof getStaticProps>) => {
             </HStack>
             <HStack>
               <Text color={textColor}>
-                {DateTime.fromISO(post.publishedAt).toLocaleString(
-                  DateTime.DATE_FULL
-                )}
+                {DateTime.fromISO(post.publishedAt).toFormat("dd LLL yyyy")}
               </Text>
               <Text color={textColor}>{post.readingTime.text}</Text>
             </HStack>

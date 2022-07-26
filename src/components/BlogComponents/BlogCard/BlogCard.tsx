@@ -74,9 +74,7 @@ const BlogCard = ({ postData }: BlogCardProps) => (
         fontSize="sm"
         color={useColorModeValue("gray.600", "gray.400")}
       >
-        {DateTime.fromISO(postData.publishedAt).toLocaleString(
-          DateTime.DATE_FULL
-        )}
+        {DateTime.fromISO(postData.publishedAt).toFormat("dd LLL yyyy")}
       </chakra.span>
     </Flex>
   </Box>
