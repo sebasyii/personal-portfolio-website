@@ -44,6 +44,16 @@ const Author = defineNestedType(() => ({
   },
 }));
 
+const Tag = defineNestedType(() => ({
+  name: "Tag",
+  fields: {
+    title: {
+      type: "string",
+      required: true,
+    },
+  },
+}));
+
 const Post = defineDocumentType(() => ({
   name: "Post",
   filePathPattern: "posts/*.mdx",
@@ -59,6 +69,10 @@ const Post = defineDocumentType(() => ({
       of: Author,
     },
     image: { type: "string", required: true },
+    tags: {
+      type: "list",
+      of: Tag,
+    },
   },
   computedFields,
 }));

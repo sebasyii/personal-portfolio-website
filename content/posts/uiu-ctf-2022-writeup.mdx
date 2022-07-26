@@ -1,0 +1,90 @@
+---
+title: UIUCTF 2021 Writeup
+publishedAt: "2022-03-12"
+description: UIUCTF is an annual Capture the Flag competition run by undergraduate students at the University of Illinois at Urbana-Champaign (UIUC).
+seoDescription: UIUCTF is an annual Capture the Flag competition run by undergraduate students at the University of Illinois at Urbana-Champaign (UIUC).
+category: "CTF"
+author: { name: "Sebastian", image: "/authors/hunter.jpeg" }
+image: "https://files.gitbook.com/v0/b/gitbook-legacy-files/o/assets%2F-MgDwQZFLcCbQbagjl_W%2F-MgExLY-BfEZIXaMSxzM%2F-MgF0O3XIkVK9J0nyDgC%2Fimage.png?alt=media&token=c4a1783a-d696-4cb4-968a-0711f865df4f"
+---
+
+I took part in UIUCTF 2021 which was an annual Capture the Flag Competition run by undergraduate students at the University of Illinois at Urbana-Champaign.
+
+It gave me tremendous experience as I am relatively new in the Cyber field. My team, Social Engineering Experts, ended 18th place, out of 658 scoring teams.
+
+I solved mostly OSINT and Forensics Challenges.
+
+Overall, it was an amazing CTF and I have learnt a ton.
+
+> Table of Contents here
+
+## Tablet 1
+
+> Red has been acting very sus lately... so I took a backup of their tablet to see if they are hiding something!
+> It looks like Red has been exfiltrating sensitive data bound for Mira HQ to their own private server. We need to access that server and contain the leak.
+> NOTE: Both Tablet challenges use the same tablet.tar.gz file.
+> Google Drive mirror
+> Dropbox mirror
+> MEGA mirror
+> MD5: f629eec128551cfd69a906e7a29dc162
+> author: WhiteHoodHacker
+
+## Solution
+
+We are provided with a backup of the tablet <code>tablet.tar.gz</code>.
+
+### Overview of the files provided
+
+In order to make things easier, I've decided to use the tool iLEAPP to give me a better overview of the system.
+
+> iLEAPP is an iOS Logs, Events, And Plists Parser.
+> It currently supports iOS/iPadOS 11, 12, 13 and 14.
+> It can parse directly from a compressed .tar/.zip file, a decompressed directory, or an iTunes/Finder backup folder.
+> More Details can be found here.
+
+After running with iLEAPP, I am presented with an overview of the current snapshot of the tablet system.
+
+While browsing the file system, the challenge description gave me some ideas on where to start.
+
+<em>
+  "It looks like Red has been exfiltrating sensitive data bound for Mira HQ to
+  their own private server. We need to access that server and contain the leak."
+</em>
+
+This gave me some inspiration. They could be using some apps to communicate with an external server so I decided to start from the mobile installation logs to see what the user has installed on the system.
+
+Bingo! The user has installed webssh which is a communication app that allows the user to connect to a server through ssh.
+
+## OSINT The Creator
+
+> There is a flag on a few of the organizer's profiles. Find it!
+> author: Thomas
+
+> Hint
+> It's on Discord :)
+
+This is fairly easy.
+
+I went to click on the admin's profiles and I managed to find it.
+
+## OSINT The Creator 2
+
+> I released another flag somewhere on one of my Twitter accounts. Can you find it?!
+> Author: Thomas
+
+The challenge provided the author's twitter account.
+
+On the author's twitter, he also provided a personal account. @Thomas_Quig
+
+As I do not want to waste time, I used a tool provided on github, called twint.
+
+I ran the scrapper and I got the answer.
+
+`twint -u Thomas_Quig -s uiuctf{`
+
+```
+1382923763910578178 2021-04-16 01:08:13 -0400 <Thomas_Quig> uiuctf{it5_@_sEcr3t_t0ol_thAT_w!ll_he7p_u$_l@ter}
+1285084458543128578 2020-07-20 01:29:45 -0400 <Thomas_Quig> UIUCTF went really awesome! Really happy that everything went so well. Will be dumping data over the next few days 😎
+1284883141681991681 2020-07-19 12:09:47 -0400 <Thomas_Quig> 10 More hours in UIUCTF!
+[!] No more data! Scraping will stop now.
+```

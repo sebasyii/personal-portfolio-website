@@ -1,7 +1,9 @@
 import {
   Box,
+  BoxProps,
   Button,
   ButtonGroup,
+  Collapse,
   Container,
   Flex,
   HStack,
@@ -14,7 +16,7 @@ import {
 
 import { FiMenu, FiMoon, FiSun } from "react-icons/fi";
 
-import React from "react";
+import React, { AnchorHTMLAttributes, useRef } from "react";
 import Logo from "../shared/Logo";
 
 import useSound from "use-sound";
@@ -22,12 +24,10 @@ import ButtonWithDropdown from "../common/ButtonWithDropdown";
 import { AnimatePresence, motion } from "framer-motion";
 
 import NextLink from "next/link";
+import ChakraNextLink from "../common/ChakraNextLink";
+import MobileNav from "./MobileNav";
 
-const links = [
-  {
-    label: "Projects",
-    href: "/projects",
-  },
+export const links = [
   {
     label: "Posts",
     href: "/posts",
@@ -55,7 +55,9 @@ const Navbar = () => {
       <Container py={{ base: "4", lg: "5" }}>
         <HStack justify="space-between" spacing="10">
           <Flex justify="space-between" flex="1">
-            <Logo />
+            <ChakraNextLink href="/">
+              <Logo />
+            </ChakraNextLink>
             {isDesktop ? (
               <ButtonGroup spacing="8" variant="link">
                 {links.map((item, key) => {
@@ -116,12 +118,17 @@ const Navbar = () => {
               <IconButton
                 aria-label="Open Menu"
                 icon={<FiMenu fontSize="1.25rem" />}
+                onClick={onToggle}
                 variant="ghost"
               />
             )}
           </Flex>
         </HStack>
       </Container>
+
+      <Collapse animateOpacity in={isOpen}>
+        <MobileNav />
+      </Collapse>
     </Box>
   );
 };

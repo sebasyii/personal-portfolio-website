@@ -9,20 +9,25 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 
+import { allPosts } from "contentlayer/generated";
+
 import React, { ReactElement } from "react";
 import dynamic from "next/dynamic";
+import { GeneratedType, NextPageWithLayout } from "@/types/shared";
 
 const Header = dynamic(() => import("@/components/Header"));
 const AboutMe = dynamic(() => import("@/components/AboutMe"));
 const Projects = dynamic(() => import("@/components/Projects"));
 const ContactMe = dynamic(() => import("@/components/ContactMe"));
 
-const Home = ({ projects }: InferGetStaticPropsType<typeof getStaticProps>) => {
+const Home: NextPageWithLayout = ({
+  posts,
+}: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <>
       <Header />
       <AboutMe />
-      <Projects projects={projects} />
+      <Projects projects={posts} />
       {/* Achievements */}
       <ContactMe />
     </>
@@ -30,21 +35,15 @@ const Home = ({ projects }: InferGetStaticPropsType<typeof getStaticProps>) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const files = fs.readdirSync(path.join("data/projects"));
-  const projects = files.map((filename) => {
-    const markdownWithMeta = fs.readFileSync(
-      path.join("data/projects", filename),
-      "utf-8"
-    );
-    const { data: frontMatter } = matter(markdownWithMeta);
-    return {
-      frontMatter,
-      slug: filename.split(".")[0],
-    };
-  });
+  const posts: GeneratedType[] = allPosts
+    .filter((post) => post.category.toLowerCase() === "projects")
+    .map((post) => ({
+      ...post,
+    }));
+
   return {
     props: {
-      projects,
+      posts,
     },
   };
 };

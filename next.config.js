@@ -8,7 +8,7 @@ const { withContentlayer } = require("next-contentlayer");
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ["images.unsplash.com"],
+    domains: ["images.unsplash.com", "files.gitbook.com"],
   },
 };
 

@@ -14,33 +14,12 @@ import { useRouter } from "next/router";
 import React, { ReactElement } from "react";
 
 import { allPosts } from "contentlayer/generated";
+import { NextSeo } from "next-seo";
 
-const mockData = [
-  {
-    title: "Blog Post 1",
-    description: "This is a blog post",
-    image: "https://source.unsplash.com/random",
-    date: "2020-01-01",
-    slug: "blog-post-1",
-  },
-  {
-    title: "Blog Post 2",
-    description: "This is a blog post",
-    image: "https://source.unsplash.com/random",
-    date: "2020-01-01",
-    slug: "blog-post-2",
-  },
-];
-
-const Resource = ({
-  posts,
-}: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const { query } = useRouter();
-
-  console.log(posts);
-
+const Post = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <>
+      <NextSeo title="Posts" />
       <Box as="section" py={{ base: "16", md: "24" }} bg="bg-surface">
         <Container mb={16}>
           <Stack spacing={{ base: "8", md: "10" }}>
@@ -48,6 +27,7 @@ const Resource = ({
               <Stack spacing="1">
                 <Text
                   color="accent"
+                  fontFamily="Space Mono"
                   fontSize={{ base: "sm", md: "md" }}
                   fontWeight="medium"
                 >
@@ -87,8 +67,6 @@ export const getStaticProps: GetStaticProps = async () => {
   };
 };
 
-Resource.getLayout = (page: ReactElement) => (
-  <SimpleLayout>{page}</SimpleLayout>
-);
+Post.getLayout = (page: ReactElement) => <SimpleLayout>{page}</SimpleLayout>;
 
-export default Resource;
+export default Post;

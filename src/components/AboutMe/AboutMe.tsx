@@ -27,6 +27,7 @@ const AboutMe = () => {
   return (
     <Box
       as="section"
+      overflow="hidden"
       pt={{ base: 8, md: 16 }}
       pb={{ base: 12, md: 24 }}
       bg={backgroundColor}

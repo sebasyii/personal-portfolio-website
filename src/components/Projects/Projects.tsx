@@ -1,3 +1,4 @@
+import { GeneratedType } from "@/types/shared";
 import {
   Box,
   Divider,
@@ -10,15 +11,8 @@ import React from "react";
 import DotGrid from "../common/DotGrid";
 import ProjectCard from "./ProjectCard";
 
-type ProjectType = {
-  frontMatter: {
-    [key: string]: string | string[];
-  };
-  slug: string;
-};
-
 type ProjectsType = {
-  projects: ProjectType[];
+  projects: GeneratedType[];
 };
 
 const Projects = ({ projects }: ProjectsType) => {

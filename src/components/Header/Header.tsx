@@ -44,9 +44,9 @@ const Header = () => {
             fontFamily="heading"
             fontSize={{ base: "lg", md: "lg" }}
           >
-            I am a programmer based in Singapore, working on building fun and
-            useful apps. I love solving problems, and I&#39;m always excited to
-            learn new things.
+            Developer and creator based in Singapore, working on building fun
+            and useful apps. I love solving problems, and I&#39;m always excited
+            to learn new things.
           </Text>
           <Stack direction={{ base: "row", sm: "row" }} mt="10" spacing="4">
             <Button

@@ -58,6 +58,7 @@ const mdxComponents = {
       p={6}
       rounded="lg"
       bg="gray.800"
+      overflowX="scroll"
       {...props}
     />
   ),

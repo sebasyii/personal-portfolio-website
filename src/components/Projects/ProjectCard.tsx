@@ -1,16 +1,20 @@
+import { GeneratedType } from "@/types/shared";
 import { Box, chakra, Heading, Stack } from "@chakra-ui/react";
 import React from "react";
 import ChakraNextImage from "../common/ChakraNextImage";
 import ChakraNextLink from "../common/ChakraNextLink";
 import ProjectMeta from "./ProjectMeta";
 
-const ProjectCard = ({ projectDetails }: any) => {
-  const { frontMatter, slug } = projectDetails;
+interface ProjectCardProps {
+  projectDetails: GeneratedType;
+}
+
+const ProjectCard = ({ projectDetails }: ProjectCardProps) => {
   return (
     <Box w="full">
       <ChakraNextImage
-        src={`/projects${frontMatter.image_url}`}
-        alt={`${slug}-image`}
+        src={`/projects${projectDetails.image}`}
+        alt={`${projectDetails.title}-image`}
         w="full"
         h={{ base: "300px", md: "500px" }}
         rounded="sm"
@@ -19,7 +23,7 @@ const ProjectCard = ({ projectDetails }: any) => {
       <Box>
         <Stack>
           <ChakraNextLink
-            href={`/projects/${slug}`}
+            href={`/projects/`}
             _hover={{
               textDecoration: "none",
             }}
@@ -36,15 +40,15 @@ const ProjectCard = ({ projectDetails }: any) => {
               cursor="pointer"
               transition="all 0.2s"
             >
-              {frontMatter.title}
+              {projectDetails.title}
             </Heading>
           </ChakraNextLink>
 
           <chakra.p fontSize={{ base: "sm", md: "md" }}>
-            {frontMatter.excerpt}
+            {projectDetails.description}
           </chakra.p>
           <ProjectMeta
-            tags={Array.isArray(frontMatter.tags) ? frontMatter.tags : []}
+            tags={Array.isArray(projectDetails.tags) ? projectDetails.tags : []}
           />
         </Stack>
       </Box>
