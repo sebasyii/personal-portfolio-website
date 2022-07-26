@@ -1,3 +1,4 @@
+import BlogCard from "@/components/BlogComponents/BlogCard";
 import CategoryLayout from "@/components/Layouts/CategoryLayout";
 import { GeneratedType } from "@/types/shared";
 
@@ -10,7 +11,13 @@ interface CategoryProps {
 }
 
 const Category = ({ category }: CategoryProps) => {
-  return <div>Category</div>;
+  return (
+    <>
+      {category.map((post) => (
+        <BlogCard key={`key-${post.slug}`} postData={{ ...post }} />
+      ))}
+    </>
+  );
 };
 
 Category.getLayout = (page: ReactElement) => (

@@ -4,7 +4,7 @@ publishedAt: "2022-03-12"
 description: UIUCTF is an annual Capture the Flag competition run by undergraduate students at the University of Illinois at Urbana-Champaign (UIUC).
 seoDescription: UIUCTF is an annual Capture the Flag competition run by undergraduate students at the University of Illinois at Urbana-Champaign (UIUC).
 category: "CTF"
-author: { name: "Sebastian", image: "/authors/hunter.jpeg" }
+author: { name: "Sebastian", image: "/profile-image.jpg" }
 image: "https://files.gitbook.com/v0/b/gitbook-legacy-files/o/assets%2F-MgDwQZFLcCbQbagjl_W%2F-MgExLY-BfEZIXaMSxzM%2F-MgF0O3XIkVK9J0nyDgC%2Fimage.png?alt=media&token=c4a1783a-d696-4cb4-968a-0711f865df4f"
 ---
 
@@ -21,26 +21,31 @@ Overall, it was an amazing CTF and I have learnt a ton.
 ## Tablet 1
 
 > Red has been acting very sus lately... so I took a backup of their tablet to see if they are hiding something!
+>
 > It looks like Red has been exfiltrating sensitive data bound for Mira HQ to their own private server. We need to access that server and contain the leak.
+>
 > NOTE: Both Tablet challenges use the same tablet.tar.gz file.
-> Google Drive mirror
-> Dropbox mirror
-> MEGA mirror
-> MD5: f629eec128551cfd69a906e7a29dc162
-> author: WhiteHoodHacker
+>
+> [Google Drive mirror](https://drive.google.com/file/d/1KcRzBZRA1VbuyzR6fVaibLgJQ11dD737/view)  
+> [Dropbox mirror](https://www.dropbox.com/s/1m7n1pyvq6xgwfb/tablet.tar.gz?dl=0)  
+> [MEGA mirror](https://mega.nz/file/9sFwjRiL#VdiMK50ION61Ll3O583TrQ3nqpxfMsM-hLXtUrUtfYU)
+>
+> MD5: `f629eec128551cfd69a906e7a29dc162{:.entity.name.function}`
+>
+> author: `WhiteHoodHacker{:.entity.name.function}`
 
 ## Solution
 
-We are provided with a backup of the tablet <code>tablet.tar.gz</code>.
+We are provided with a backup of the tablet `tablet.tar.gz{:.entity.name.function}`.
 
 ### Overview of the files provided
 
 In order to make things easier, I've decided to use the tool iLEAPP to give me a better overview of the system.
 
-> iLEAPP is an iOS Logs, Events, And Plists Parser.
-> It currently supports iOS/iPadOS 11, 12, 13 and 14.
-> It can parse directly from a compressed .tar/.zip file, a decompressed directory, or an iTunes/Finder backup folder.
-> More Details can be found here.
+> - iLEAPP is an iOS Logs, Events, And Plists Parser.
+> - It currently supports iOS/iPadOS 11, 12, 13 and 14.
+> - It can parse directly from a compressed .tar/.zip file, a decompressed directory, or an iTunes/Finder backup folder.
+> - More Details can be found here.
 
 After running with iLEAPP, I am presented with an overview of the current snapshot of the tablet system.
 
@@ -57,10 +62,10 @@ Bingo! The user has installed webssh which is a communication app that allows th
 
 ## OSINT The Creator
 
-> There is a flag on a few of the organizer's profiles. Find it!
+> There is a flag on a few of the organizer's profiles. Find it!  
 > author: Thomas
 
-> Hint
+> Hint:  
 > It's on Discord :)
 
 This is fairly easy.
@@ -69,7 +74,7 @@ I went to click on the admin's profiles and I managed to find it.
 
 ## OSINT The Creator 2
 
-> I released another flag somewhere on one of my Twitter accounts. Can you find it?!
+> I released another flag somewhere on one of my Twitter accounts. Can you find it?!  
 > Author: Thomas
 
 The challenge provided the author's twitter account.
@@ -80,7 +85,7 @@ As I do not want to waste time, I used a tool provided on github, called twint.
 
 I ran the scrapper and I got the answer.
 
-`twint -u Thomas_Quig -s uiuctf{`
+`twint -u Thomas_Quig -s uiuctf{{:.entity.name.function}`
 
 ```
 1382923763910578178 2021-04-16 01:08:13 -0400 <Thomas_Quig> uiuctf{it5_@_sEcr3t_t0ol_thAT_w!ll_he7p_u$_l@ter}

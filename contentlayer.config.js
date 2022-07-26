@@ -10,6 +10,9 @@ import rehypeSlug from "rehype-slug";
 import rehypeCodeTitles from "rehype-code-titles";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypePrettyCode from "rehype-pretty-code";
+import rehypeSanitize from "rehype-sanitize";
+
+import { h, s } from "hastscript";
 
 const options = {
   // Use one of Shiki's packaged themes
@@ -85,12 +88,39 @@ const contentLayerConfig = makeSource({
     rehypePlugins: [
       rehypeSlug,
       rehypeCodeTitles,
+
       [
         rehypeAutolinkHeadings,
         {
+          behavior: "append",
           properties: {
             className: ["anchor"],
           },
+          // content: (node) =>
+          //   s(
+          //     "svg",
+          //     {
+          //       className: "icon",
+          //       viewBox: "0 0 24 24",
+          //       xmlns: "http://www.w3.org/2000/svg",
+          //       fill: "none",
+          //       stroke: "currentColor",
+          //       strokeWidth: "2",
+          //       strokeLinecap: "round",
+          //       strokeLineJoin: "round",
+          //       height: "1em",
+          //       width: "1em",
+          //       position: "absolute",
+          //     },
+          //     [
+          //       s("path", {
+          //         d: "M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71",
+          //       }),
+          //       s("path", {
+          //         d: "M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71",
+          //       }),
+          //     ]
+          //   ),
         },
       ],
       [rehypePrettyCode, options],

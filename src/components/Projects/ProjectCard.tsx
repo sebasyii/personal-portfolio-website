@@ -13,7 +13,7 @@ const ProjectCard = ({ projectDetails }: ProjectCardProps) => {
   return (
     <Box w="full">
       <ChakraNextImage
-        src={`/projects${projectDetails.image}`}
+        src={`${projectDetails.image}`}
         alt={`${projectDetails.title}-image`}
         w="full"
         h={{ base: "300px", md: "500px" }}
@@ -23,7 +23,7 @@ const ProjectCard = ({ projectDetails }: ProjectCardProps) => {
       <Box>
         <Stack>
           <ChakraNextLink
-            href={`/projects/`}
+            href={`/posts/${projectDetails.slug}`}
             _hover={{
               textDecoration: "none",
             }}

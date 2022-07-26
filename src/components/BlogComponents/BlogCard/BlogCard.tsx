@@ -1,3 +1,4 @@
+import ChakraNextLink from "@/components/common/ChakraNextLink";
 import {
   Box,
   chakra,
@@ -7,6 +8,7 @@ import {
   HStack,
   Tag,
 } from "@chakra-ui/react";
+import { DateTime } from "luxon";
 import React from "react";
 
 interface BlogCardProps {
@@ -16,6 +18,7 @@ interface BlogCardProps {
     description: string;
     seoDescription: string;
     category: string;
+    slug: string;
   };
 }
 
@@ -29,18 +32,19 @@ const BlogCard = ({ postData }: BlogCardProps) => (
     rounded="md"
   >
     <Box mt={2}>
-      <Link
+      <ChakraNextLink
         color={useColorModeValue("gray.700", "white")}
         fontFamily="heading"
         fontSize="2xl"
         fontWeight="700"
         _hover={{
-          color: useColorModeValue("gray.600", "gray.200"),
-          textDecor: "underline",
+          color: useColorModeValue("gray.600", "brand.300"),
+          textDecor: "none",
         }}
+        href={`/posts/${postData.slug}`}
       >
         {postData.title}
-      </Link>
+      </ChakraNextLink>
       <chakra.p
         mt={2}
         color={useColorModeValue("gray.600", "gray.300")}
@@ -50,23 +54,29 @@ const BlogCard = ({ postData }: BlogCardProps) => (
       </chakra.p>
     </Box>
 
-    <HStack mt={2} mb={4}>
-      <Tag>CTF</Tag>
+    <HStack mt={2} mb={5}>
+      <Tag colorScheme="teal">{postData.category}</Tag>
     </HStack>
 
     <Flex alignItems="center" justifyContent="space-between" mt={4}>
-      <Link
-        color={useColorModeValue("brand.600", "brand.400")}
-        _hover={{ textDecor: "underline" }}
+      <ChakraNextLink
+        color={useColorModeValue("brand.800", "brand.500")}
+        _hover={{
+          textDecor: "none",
+          color: useColorModeValue("brand.600", "brand.400"),
+        }}
+        href={`/posts/${postData.slug}`}
       >
         Read more
-      </Link>
+      </ChakraNextLink>
 
       <chakra.span
         fontSize="sm"
         color={useColorModeValue("gray.600", "gray.400")}
       >
-        {postData.publishedAt}
+        {DateTime.fromISO(postData.publishedAt).toLocaleString(
+          DateTime.DATE_FULL
+        )}
       </chakra.span>
     </Flex>
   </Box>

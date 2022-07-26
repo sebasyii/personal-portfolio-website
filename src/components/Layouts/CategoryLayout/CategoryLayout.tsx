@@ -18,13 +18,25 @@ interface SimpleLayoutProps {
   children: ReactElement<{ category: GeneratedType[] }>;
 }
 
+const pluralize = (word: string, shouldPluralise: boolean) => {
+  if (shouldPluralise && word.slice(-1) !== "s") {
+    return `${word}s`;
+  }
+
+  if (!shouldPluralise && word.slice(-1) === "s") {
+    return word.slice(0, -1);
+  }
+
+  return word;
+};
+
 const CategoryLayout = ({ children }: SimpleLayoutProps) => {
   const { category } = children.props;
 
   return (
     <>
       <Navbar />
-      <chakra.main py={32}>
+      <chakra.main py={32} bg="bg-surface">
         <Container maxW="container.lg">
           <Stack
             align="end"
@@ -35,19 +47,13 @@ const CategoryLayout = ({ children }: SimpleLayoutProps) => {
             <Heading as="h1" fontFamily="Space Mono" fontSize="5xl">
               {category[0].category}
             </Heading>
-            <Text>{category.length} articles</Text>
+            <Text>
+              {category.length}
+              {` ${pluralize(category[0].category, category.length > 1)}`}
+            </Text>
           </Stack>
 
           <SimpleGrid columns={{ sm: 1, md: 2 }} spacing={10}>
-            <BlogCard
-              postData={{
-                title: "",
-                publishedAt: "",
-                description: "",
-                seoDescription: "",
-                category: "",
-              }}
-            />
             {children}
           </SimpleGrid>
         </Container>

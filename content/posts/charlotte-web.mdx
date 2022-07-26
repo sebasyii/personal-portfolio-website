@@ -1,28 +1,54 @@
 ---
-title: Charlotte Web
+title: Charlotte Web - A Project for T4G
 publishedAt: "2022-03-12"
 description: A detailed look at the process of creating Charlotte, an accessibility chrome extension, from start to finish. Developed as part of Engineering Good's Tech for Good Hackathon.
 seoDescription: A detailed look at the process of creating Charlotte, an accessibility chrome extension, from start to finish. Developed as part of Engineering Good's Tech for Good Hackathon.
 category: "Projects"
-author: { name: "Hunter Becton", image: "/authors/hunter.jpeg" }
-image: "/charlotte-thumbnail-image.webp"
+author: { name: "Sebastian Yii", image: "/profile-image.jpg" }
+image: "/projects/charlotte-thumbnail-image.webp"
 tags:
   - title: Chrome Extension
   - title: Flask
-  - title: React
 ---
 
-This project was developed in 4 months in conjunction with the Tech 4 Good
-Hackathon 2021. The competition was to develop a solution to one of their 26
-problem statements, ranging from improving telescopes for the blind,
+> There is a live version of this project!
+
+Here is the landing page for this chrome extension. [https://charlotteweb.io/](https://charlotteweb.io/)
+
+If you would like to download the chrome extension for your own use, please visit [Chrome Web Extension Store Link](https://chrome.google.com/webstore/detail/charlotte/jkdoomkdcioheppgnmpakinhlgjflnem/)
+
+---
+
+## Introduction
+
+This project was developed in 4 months in conjunction with the [Tech 4 Good
+Hackathon 2021](https://engineeringgood.org/assistive-tech/tech-for-good-2021/).
+The competition was to develop a solution to one of their 26
+[problem statements](https://engineeringgood.org/assistive-tech/t4g-2022-ps/),
+ranging from improving telescopes for the blind,
 communication tools for the aphasic, and everything in between!
 
-Introduction
-
-Why did you choose this problem?
+## Why did you choose this problem?
 
 The reason why we chose this problem statement was because while we were
 exploring the problem statements, we found that this problem statement is the
 one that we were able to make the most impact on. Also through discovery, we
-found that there wasn't any chrome extension that allow us to create a custom
-accessibility tool.
+found that there wasn't any chrome extensions that really solved this problem.
+
+## The Tech Stack
+
+- [Flask](https://flask.palletsprojects.com/)
+- [Chrome Extension API](https://developer.chrome.com/docs/extensions/reference/)
+- HTML & CSS for layout
+
+### A brief introduction for the tech stack:
+
+We wanted to create a usable and MVP chrome extension quickly and easily. We decided on Flask as
+the whole team was very comfortable with Flask and we felt that it was the best choice for this.
+
+We also had to use the Chrome extension API as we wanted the app to be as accessible as possible.
+We didn't want to create a desktop app as that is already solved by the native applications provided
+by all the Operating Systems. We also didn't want users to need to install an application to be able to use.
+Thus, we decided on creating a Chrome Extension.
+
+Since we didn't want to deal with the setup of Webpack or any other build tools, we did not use React. We decided on basic HTML and CSS.

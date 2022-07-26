@@ -52,3 +52,9 @@ export interface Tag {
   type: string;
   _raw: AuthorRaw;
 }
+
+export interface MDXComponentsProps<T> {
+  props?: T;
+  href?: string;
+  children: ReactNode;
+}
