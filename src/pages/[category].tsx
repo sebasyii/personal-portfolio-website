@@ -1,13 +1,12 @@
 import BlogCard from "@/components/BlogComponents/BlogCard";
 import CategoryLayout from "@/components/Layouts/CategoryLayout";
-import { GeneratedType } from "@/types/shared";
 
-import { allPosts } from "contentlayer/generated";
+import { allPosts, Post } from "contentlayer/generated";
 import type { GetStaticPaths, GetStaticProps } from "next";
 import React, { ReactElement } from "react";
 
 interface CategoryProps {
-  category: GeneratedType[];
+  category: Post[];
 }
 
 const Category = ({ category }: CategoryProps) => {

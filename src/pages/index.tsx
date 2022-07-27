@@ -1,15 +1,11 @@
-// import AboutMe from "@/components/AboutMe";
-// import ContactMe from "@/components/ContactMe";
-// import Footer from "@/components/Footer";
-// import Header from "@/components/Header";
 import SimpleLayout from "@/components/Layouts/SimpleLayout";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
 
-import { allPosts } from "contentlayer/generated";
+import { allPosts, Post } from "contentlayer/generated";
 
 import React, { ReactElement } from "react";
 import dynamic from "next/dynamic";
-import { GeneratedType, NextPageWithLayout } from "@/types/shared";
+import { NextPageWithLayout } from "@/types/shared";
 
 const Header = dynamic(() => import("@/components/Header"));
 const AboutMe = dynamic(() => import("@/components/AboutMe"));
@@ -31,7 +27,7 @@ const Home: NextPageWithLayout = ({
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const posts: GeneratedType[] = allPosts
+  const posts: Post[] = allPosts
     .filter((post) => post.category.toLowerCase() === "projects")
     .map((post) => ({
       ...post,

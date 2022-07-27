@@ -1,12 +1,12 @@
-import { GeneratedType } from "@/types/shared";
 import { Box, chakra, Heading, Stack } from "@chakra-ui/react";
+import { Post } from "contentlayer/generated";
 import React from "react";
 import ChakraNextImage from "../common/ChakraNextImage";
 import ChakraNextLink from "../common/ChakraNextLink";
 import ProjectMeta from "./ProjectMeta";
 
 interface ProjectCardProps {
-  projectDetails: GeneratedType;
+  projectDetails: Post;
 }
 
 const ProjectCard = ({ projectDetails }: ProjectCardProps) => {

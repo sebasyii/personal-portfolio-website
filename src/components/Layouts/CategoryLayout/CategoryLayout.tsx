@@ -1,7 +1,7 @@
 import BlogCard from "@/components/BlogComponents/BlogCard";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
-import { GeneratedType } from "@/types/shared";
+
 import {
   chakra,
   Container,
@@ -10,12 +10,12 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
+import { Post } from "contentlayer/generated";
 import React from "react";
 import { ReactElement } from "react";
-import { ReactNode } from "react";
 
 interface SimpleLayoutProps {
-  children: ReactElement<{ category: GeneratedType[] }>;
+  children: ReactElement<{ category: Post[] }>;
 }
 
 const pluralize = (word: string, shouldPluralise: boolean) => {

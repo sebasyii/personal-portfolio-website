@@ -22,7 +22,7 @@ import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next";
 import { allPosts } from "contentlayer/generated";
 import { useMDXComponent } from "next-contentlayer/hooks";
 
-import React, { ReactNode } from "react";
+import React from "react";
 import ChakraNextImage from "@/components/common/ChakraNextImage";
 
 import dynamic from "next/dynamic";

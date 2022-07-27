@@ -1,0 +1,41 @@
+---
+title: Allow Pasting on Websites Snippet
+publishedAt: "2022-03-12"
+description: A simple code snippet to allow pasting on websites.
+seoDescription: A simple code snippet to allow pasting on websites.
+category: "Snippets"
+author: { name: "Sebastian Yii", image: "/profile-image.jpg" }
+image: "https://images.unsplash.com/photo-1628329336337-8c33a8f08ec1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80"
+---
+
+```typescript
+const allowPasteFunction = (e: ClipboardEvent): boolean => {
+  e.stopImmediatePropagation();
+  return true;
+};
+
+document.addEventListener("paste", allowPasteFunction, true);
+```
+
+```javascript
+const allowPasteFunction = (e) => {
+  e.stopImmediatePropagation();
+  return true;
+};
+
+document.addEventListener("paste", allowPasteFunction, true);
+```
+
+The Original code is referenced from [here](https://www.cyberciti.biz/linux-news/google-chrome-extension-to-removes-password-paste-blocking-on-website/).
+
+## How to use the code
+
+Visit the the site you want to disable pasting protection.
+
+Open the Developer Console with the shortcut, <Kbd>Cmd</Kbd> + <Kbd>Shift</Kbd> + <Kbd>J</Kbd>.
+
+Paste the code in the Developer Console.
+
+## Conclusion
+
+Hope this simple code snippet will help you bypass pasting protection.

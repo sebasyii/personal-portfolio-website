@@ -1,4 +1,3 @@
-import { GeneratedType } from "@/types/shared";
 import {
   Box,
   Divider,
@@ -7,12 +6,13 @@ import {
   useColorModeValue,
   VStack,
 } from "@chakra-ui/react";
+import { Post } from "contentlayer/generated";
 import React from "react";
 import DotGrid from "../common/DotGrid";
 import ProjectCard from "./ProjectCard";
 
 type ProjectsType = {
-  projects: GeneratedType[];
+  projects: Post[];
 };
 
 const Projects = ({ projects }: ProjectsType) => {
