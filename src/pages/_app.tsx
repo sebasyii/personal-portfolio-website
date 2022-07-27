@@ -23,7 +23,7 @@ const App = (props: AppPropsWithLayout) => {
   const getLayout = Component.getLayout ?? ((page: NextPage) => page);
 
   const router = useRouter();
-  const gaMeasurementId = process.env.GOOGLE_ANALYTICS_ID ?? null;
+  const gaMeasurementId = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID ?? null;
 
   useEffect(() => {
     const handleRouteChange = (url: string) => {

@@ -35,6 +35,7 @@ import MDXLink from "@/components/MDXComponents/MDXLink";
 
 import { DateTime } from "luxon";
 import MDXTable from "@/components/MDXComponents/MDXTable";
+import MDXImage from "@/components/MDXComponents/MDXImage";
 
 const Pre = dynamic(() => import("@/components/MDXComponents/Pre"), {
   ssr: false,
@@ -74,6 +75,7 @@ const mdxComponents = {
   th: Th,
   tbody: Tbody,
   td: Td,
+  // img: MDXImage,
 };
 
 const Post = ({ post }: InferGetStaticPropsType<typeof getStaticProps>) => {

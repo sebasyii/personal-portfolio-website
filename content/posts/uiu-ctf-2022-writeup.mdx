@@ -40,14 +40,18 @@ We are provided with a backup of the tablet `tablet.tar.gz{:.entity.name.functio
 
 ### Overview of the files provided
 
-In order to make things easier, I've decided to use the tool iLEAPP to give me a better overview of the system.
+![Overview of the files](https://files.gitbook.com/v0/b/gitbook-legacy-files/o/assets%2F-MgDwQZFLcCbQbagjl_W%2F-MgE6oCLpUn-8Fix7QXS%2F-MgEC23gO2kmxaFsZwqT%2Fimage.png?alt=media&token=e696b6b6-9840-4fb8-a8a5-370ffcb87d91)
+
+In order to make things easier, I've decided to use the tool [iLEAPP](https://github.com/abrignoni/iLEAPP) to give me a better overview of the system.
 
 > - iLEAPP is an iOS Logs, Events, And Plists Parser.
 > - It currently supports iOS/iPadOS 11, 12, 13 and 14.
 > - It can parse directly from a compressed .tar/.zip file, a decompressed directory, or an iTunes/Finder backup folder.
-> - More Details can be found here.
+> - More Details can be found [here](https://github.com/abrignoni/iLEAPP).
 
 After running with iLEAPP, I am presented with an overview of the current snapshot of the tablet system.
+
+![iLEAPP Dashboard](https://files.gitbook.com/v0/b/gitbook-legacy-files/o/assets%2F-MgDwQZFLcCbQbagjl_W%2F-MgE6oCLpUn-8Fix7QXS%2F-MgEj7vcuHWepuGpF24F%2Fimage.png?alt=media&token=d9cc4337-a2a2-48d8-99ea-17805f1b1628)
 
 While browsing the file system, the challenge description gave me some ideas on where to start.
 
@@ -58,7 +62,125 @@ While browsing the file system, the challenge description gave me some ideas on 
 
 This gave me some inspiration. They could be using some apps to communicate with an external server so I decided to start from the mobile installation logs to see what the user has installed on the system.
 
+![Screenshots of Apps Installed](https://files.gitbook.com/v0/b/gitbook-legacy-files/o/assets%2F-MgDwQZFLcCbQbagjl_W%2F-MgE6oCLpUn-8Fix7QXS%2F-MgEj7vcuHWepuGpF24F%2Fimage.png?alt=media&token=d9cc4337-a2a2-48d8-99ea-17805f1b1628)
+
 Bingo! The user has installed webssh which is a communication app that allows the user to connect to a server through ssh.
+
+Now, we have to find the folder that contains the App Info.
+
+After a few Google searches, I know that we must first find out the installed apps ID in order to find the location of the specified app.
+
+The path `/private/var/mobile/Library/FrontBoard/applicationState.db{:.entity.name.function}` keeps track of the app bundle IDs as well as the path and long alphanumeric folder name ID where the app keeps its data.
+
+We could have manually find it ourselves and use a DB browser to view the applicationstate.db but since we have already used iLEAPP, we shall continue using that.
+
+![Image of the Path Location of the Apps](https://files.gitbook.com/v0/b/gitbook-legacy-files/o/assets%2F-MgDwQZFLcCbQbagjl_W%2F-MgE6oCLpUn-8Fix7QXS%2F-MgEmLJmuWfze4Fst7JA%2Fimage.png?alt=media&token=9881a306-3f35-4117-ae2f-712b9b3a0221)
+
+From this, we can see that the application is located at `/private/var/mobile/Containers/Data/Application/AA7DB282-D12B-4FB1-8DD2-F5FEF3E3198B`. With that information, we can explore further.
+
+![Folder of webssh](https://files.gitbook.com/v0/b/gitbook-legacy-files/o/assets%2F-MgDwQZFLcCbQbagjl_W%2F-MgE6oCLpUn-8Fix7QXS%2F-MgEn0s8EudT_i3ae3QD%2Fimage.png?alt=media&token=4e134c0c-a871-43ab-b9ed-adcda71af8bd)
+
+We are now presented with the app contents, we can experiment further.
+
+After minutes of exploring the contents, only one file stood out to me which is the webssh.db.
+
+Let's open and explore what it contains.
+
+![DB Browser with webssh.db contents](https://files.gitbook.com/v0/b/gitbook-legacy-files/o/assets%2F-MgDwQZFLcCbQbagjl_W%2F-MgE6oCLpUn-8Fix7QXS%2F-MgEnZ0pWeU9a2FfYTvF%2Fimage.png?alt=media&token=a1a2ff51-bb9f-4ee8-b45a-882bdd4ccca1)
+
+Wow! Seems very useful to us. At one glance, you can tell that the user has connected to red.chal.uiuc.tf through ssh.
+
+With that information, I sshed to the server with the private key that was presented to me.
+
+`ssh red@red.chal.uiuc.tf -p 42069 -i /Users/sebastianyii/Desktop/private-key.txt{:bash}`
+
+`This service allows sftp connections only. Connection to red.chal.uiuc.tf closed.`
+
+With that issue, I used cyberduck to connect throug sftp instead.
+
+After getting in, I was presented with an empty folder in /home/red
+
+![Empty Directory in /home/red](https://files.gitbook.com/v0/b/gitbook-legacy-files/o/assets%2F-MgDwQZFLcCbQbagjl_W%2F-MgE6oCLpUn-8Fix7QXS%2F-MgEp0FeAeBkaZYnVQgg%2Fimage.png?alt=media&token=e69cea20-673c-4968-80e9-27451dcb99fe)
+
+I then explored but found nothing interesting so I thought, they might have hid some files but its not possible to see through cyberduck so I went to download the folder. I then ran ls -la to see whether they have really hidden some useful files.
+
+Well, turn out they did.
+
+![Filesystem](https://files.gitbook.com/v0/b/gitbook-legacy-files/o/assets%2F-MgDwQZFLcCbQbagjl_W%2F-MgE6oCLpUn-8Fix7QXS%2F-MgEpbaSaeg7735xSoWu%2Fimage.png?alt=media&token=60120ab2-2b93-41d6-b2bd-c1abe759fee0)
+
+I then went to check what do they contain.
+
+![Bash History](https://files.gitbook.com/v0/b/gitbook-legacy-files/o/assets%2F-MgDwQZFLcCbQbagjl_W%2F-MgE6oCLpUn-8Fix7QXS%2F-MgEprnHVbeal00FLKmJ%2Fimage.png?alt=media&token=56dff733-e76c-42b2-852c-ad0cf2d4fecb)
+
+This command seems very suspicious to me indeed. I went back to cyberduck to check out on the /srv/ folder again. Nothing is seen again so I decided to download it.
+
+![](https://files.gitbook.com/v0/b/gitbook-legacy-files/o/assets%2F-MgDwQZFLcCbQbagjl_W%2F-MgE6oCLpUn-8Fix7QXS%2F-MgEqHkWZ3QIM33k7WcV%2Fimage.png?alt=media&token=0e06dd47-60c7-43ee-9bcb-46ca6fb062e2)
+
+Ah ha! They have hidden the files using the hidden files trick. I then open it and found an important data!
+
+![](https://files.gitbook.com/v0/b/gitbook-legacy-files/o/assets%2F-MgDwQZFLcCbQbagjl_W%2F-MgE6oCLpUn-8Fix7QXS%2F-MgEqfl2i6LckC6swXAA%2Fimage.png?alt=media&token=1c6b9230-0779-42c5-a6b7-2b9e13fe5b24)
+
+Turns out it is indeed the flag!
+
+![Flag Image](https://files.gitbook.com/v0/b/gitbook-legacy-files/o/assets%2F-MgDwQZFLcCbQbagjl_W%2F-MgE6oCLpUn-8Fix7QXS%2F-MgEqoTLkajNGQoXOlSU%2Fimage.png?alt=media&token=0f81fede-9f4e-41ae-b248-8e2a98a5a027)
+
+There you go!
+
+flag: `uiuctf{upload_task_only_takes_9_seconds_0bf79b}{:.entity.name.function}`
+
+## Tablet 2
+
+### Description
+
+> Wait... there are TWO impostors?! Red must have been in contact with the other impostor. See if you can find out what they are plotting.
+>
+> NOTE: Both Tablet challenges use the same file, which can be downloaded from Tablet 1.
+>
+> author: WhiteHoodHacker
+
+---
+
+### Solution
+
+While doing tablet 1, I found that the user has installed discord as well so I shall check that out.
+
+While using iLEAPP, I found that the discord directory is located at
+`/private/var/mobile/Containers/Data/Application/0CE5D539-F72A-4C22-BADF-A02CE5A50D2E{:.entity.name.function}`
+
+After exploring, I found that the Chat cache is located at `~/Library/Cache/com.hammerandchisel.discord/Cache.db{:.entity.name.function}`.
+
+The contents of the data are located at the table cfurl_cache_receiver_data.
+
+There are 4 rows of data but the 3rd row looks the most interesting so I took a look at realised that it is a history of the chats in JSON. I took out the main points and here is the summary of the chat.
+
+```
+RedAmogus: Yo
+RedAmogus: White is onto me… they kept calling me out last meeting
+BlueAmogus: I'll deal with them, you just make sure this next sabotage goes to plan
+BlueAmogus: I sent you an encrypted note with all the details
+BlueAmogus: The password is ||su5Syb@k4||
+RedAmogus: Ok
+```
+
+There are some points that I have to take note. The BlueAmongus user states that he has sent the RedAmogus an encrypted note with all the details and the password is `su5Syb@k4{:.entity.name.function}`.
+
+This gave us some idea on where to inspect next. With this, I decided to take a look at the apple notes directory.
+
+With the iLEAPP tool, it made it so much easier to locate the apple notes.
+
+![iLEAPP Apple Notes](https://files.gitbook.com/v0/b/gitbook-legacy-files/o/assets%2F-MgDwQZFLcCbQbagjl_W%2F-MgErISlPV8wbqBAvEMX%2F-MgEuWljPF7AKKksidfE%2Fimage.png?alt=media&token=e26e3a75-fb91-4633-bd31-92ce52092c1e)
+
+Yup, I was right. So let's explore that.
+
+After further research, I found that Apple stores the data in the NoteStore.sqlite file. I then used [Apple Notes Parser](https://github.com/threeplanetssoftware/apple_cloud_notes_parser) which made things easier.
+
+After running the SQLite file through Apple Notes Parser, with the password we found earlier, su5Syb@k4, I am able to decrypt the Apple notes and read the information.
+
+![Apple Notes Parser Results](https://files.gitbook.com/v0/b/gitbook-legacy-files/o/assets%2F-MgDwQZFLcCbQbagjl_W%2F-MgErISlPV8wbqBAvEMX%2F-MgEvdCc2D81-44YRYC1%2Fimage.png?alt=media&token=d6e9b835-beee-4e5f-a2d6-09ec0d752cf6)
+
+Tada! We got the flag!
+
+Flag: `uiuctf{wh3n_the_imp0stors_4re_su5_305da9}{:.entity.name.function}`
 
 ## OSINT The Creator
 
@@ -93,3 +215,7 @@ I ran the scrapper and I got the answer.
 1284883141681991681 2020-07-19 12:09:47 -0400 <Thomas_Quig> 10 More hours in UIUCTF!
 [!] No more data! Scraping will stop now.
 ```
+
+## Conclusion
+
+Overall, it was an amazing CTF and I have learnt a ton of forensics skills.
